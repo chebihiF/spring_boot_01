@@ -2,6 +2,8 @@ package org.test.tp01.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +23,18 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/","/index.html","/css/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/products/**").hasRole("MANAGER")
+                .antMatchers("/api/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+    }
+
+    @Override
     @Bean
     protected UserDetailsService userDetailsService() {
 
@@ -37,7 +51,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder.encode("manager"))
                 .roles("MANAGER")
                 .build();
-
 
         return new InMemoryUserDetailsManager(
                 admin, manager
