@@ -21,6 +21,8 @@ public class ProductConfig {
           productRepository.save(new Product("R003","TV Sony",13000,5));
           productRepository.save(new Product("R004","Iphone 12",700,100));
           productRepository.save(new Product("R005","PS5",400,500));
+
+          productRepository.findProductByQteLessThan(100).forEach(System.out::println);
         };
     }
 }
