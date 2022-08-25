@@ -1,5 +1,6 @@
 package org.test.tp01.product;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class ProductRestController {
         this.productService = productService;
     }
 
+    @PreAuthorize("hasAnyAuthority('product:read')")
     @GetMapping
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
@@ -29,6 +31,7 @@ public class ProductRestController {
         return products;
     }
 
+    @PreAuthorize("hasAnyAuthority('product:delete')")
     @GetMapping("/lessthan/{qte}")
     public List<Product> getProductsLessThan(@PathVariable int qte) {
         List<Product> products = new ArrayList<>();
