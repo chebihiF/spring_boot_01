@@ -17,10 +17,10 @@ public class AuthConfig {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner initUser() {
         return args -> {
-/*            User user_admin = userRepository.save(new User("admin",passwordEncoder.encode("admin")));
+            User user_admin = userRepository.save(new User("admin",passwordEncoder.encode("admin")));
             User user_manager = userRepository.save(new User("manager",passwordEncoder.encode("manager")));
 
             Authority authority_write = authorityRepository.save(new Authority("product:write"));
@@ -43,7 +43,7 @@ public class AuthConfig {
             authorityRepository.save(authority_read);
 
             authority_delete.getUsers().add(user_admin);
-            authorityRepository.save(authority_delete); */
+            authorityRepository.save(authority_delete);
         };
     }
 }

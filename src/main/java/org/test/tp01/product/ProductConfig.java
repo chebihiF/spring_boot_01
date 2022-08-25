@@ -13,7 +13,7 @@ public class ProductConfig {
         this.productRepository = productRepository;
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner init_product() {
         return args -> {
           productRepository.save(new Product("R001","Iphone13",1300,50));
